@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as fd
 import tkinter.font as tkFont
-
+import os #imported os  for showing file name
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
@@ -42,8 +42,8 @@ class App:
         self.__GLabel_544["font"] = ft
         self.__GLabel_544["fg"] = "#333333"
         self.__GLabel_544["justify"] = "center"
-        self.__GLabel_544["text"] = "label"
-        self.__GLabel_544.place(x=150, y=50, width=70, height=25)
+        self.__GLabel_544["text"] = "No file selected"
+        self.__GLabel_544.place(x=0, y=90, width=200, height=25)
 
         # these canvases are broken, fix them
         self.__GLineEdit_517 = tk.Canvas(root)
@@ -60,6 +60,9 @@ class App:
 
     def __GButton_450_command(self):
         filePath = fd.askopenfilename(initialdir='.')
+        
+        #Displaying just file name
+        self.__GLabel_544.config(text = os.path.basename(filePath))
         try:
             self.__df = pd.read_csv(filePath)
             self.__df = self.__df.dropna()
