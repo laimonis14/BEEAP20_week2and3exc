@@ -34,7 +34,7 @@ class App:
         self.__GButton_450["command"] = self.__GButton_450_command
 
         self.__GListBox_563 = ttk.Combobox(root)
-        self.__GListBox_563.place(x=350, y=50, width=80, height=25)
+        self.__GListBox_563.place(x=400, y=50, width=150, height=25)
         self.__GListBox_563.bind("<<ComboboxSelected>>", self.__comboBoxCb)
 
         self.__GLabel_544 = tk.Label(root)
@@ -44,6 +44,16 @@ class App:
         self.__GLabel_544["justify"] = "center"
         self.__GLabel_544["text"] = "No file selected"
         self.__GLabel_544.place(x=0, y=90, width=200, height=25)
+        
+        #List box label
+        self.__List_Label = tk.Label(root)
+        ft = tkFont.Font(family = "Times", size = 12)
+        self.__List_Label["font"] = ft
+        self.__List_Label["fg"] = "#333333"
+        self.__List_Label["justify"] = "center"
+        self.__List_Label["text"] = "Select the city:"
+        self.__List_Label.place(x=280, y=50, width=100, height=25)
+        
 
         # these canvases are broken, fix them
         self.__GLineEdit_517 = tk.Canvas(root)
