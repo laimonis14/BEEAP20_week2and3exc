@@ -5,16 +5,18 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as fd
 import tkinter.font as tkFont
-
+import os #imported os  for showing file name
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
+
+        
 class App:
     def __init__(self, root):
         # setting title
-        root.title("undefined")
-        # setting window size     test
-        width = 600
+        root.title("DATA Browser/test changing")
+        # setting window size
+        width = 700
         height = 500
         screenwidth = root.winfo_screenwidth()
         screenheight = root.winfo_screenheight()
@@ -23,66 +25,90 @@ class App:
         root.geometry(alignstr)
         root.resizable(width=False, height=False)
 
-        self.__GButton_450 = tk.Button(root)
-        self.__GButton_450["bg"] = "#efefef"
+        self.__Button1 = tk.Button(root)
+        self.__Button1["bg"] = "#efefef"
         ft = tkFont.Font(family='Times', size=10)
-        self.__GButton_450["font"] = ft
-        self.__GButton_450["fg"] = "#000000"
-        self.__GButton_450["justify"] = "center"
-        self.__GButton_450["text"] = "Button"
-        self.__GButton_450.place(x=70, y=50, width=70, height=25)
-        self.__GButton_450["command"] = self.__GButton_450_command
+        self.__Button1["font"] = ft
+        self.__Button1["fg"] = "#000000"
+        self.__Button1["justify"] = "center"
+        self.__Button1["text"] = "Select CSV file"
+        self.__Button1.place(x=30, y=50, width=100, height=25)
+        self.__Button1["command"] = self.__Button1_command
 
-        self.__GListBox_563 = ttk.Combobox(root)
-        self.__GListBox_563.place(x=350, y=50, width=80, height=25)
-        self.__GListBox_563.bind("<<ComboboxSelected>>", self.__comboBoxCb)
+        self.__List_Box = ttk.Combobox(root)
+        self.__List_Box.place(x=500, y=50, width=150, height=25)
+        self.__List_Box.bind("<<ComboboxSelected>>", self.__comboBoxCb)
 
-        self.__GLabel_544 = tk.Label(root)
+        self.__File_Label = tk.Label(root)
         ft = tkFont.Font(family='Times', size=10)
-        self.__GLabel_544["font"] = ft
-        self.__GLabel_544["fg"] = "#333333"
-        self.__GLabel_544["justify"] = "center"
-        self.__GLabel_544["text"] = "label"
-        self.__GLabel_544.place(x=150, y=50, width=70, height=25)
+        self.__File_Label["font"] = ft
+        self.__File_Label["fg"] = "#333333"
+        self.__File_Label["justify"] = "left"
+        self.__File_Label["text"] = "No file selected"
+        self.__File_Label.place(x=130, y=50, width=200, height=25)
+        
+        #List box label
+        self.__List_Label = tk.Label(root)
+        ft = tkFont.Font(family = "Times", size = 12)
+        self.__List_Label["font"] = ft
+        self.__List_Label["fg"] = "#333333"
+        self.__List_Label["justify"] = "center"
+        self.__List_Label["text"] = "Select the city:"
+        self.__List_Label.place(x=380, y=50, width=100, height=25)
+        
 
-        # these canvases are broken, fix them
-        self.__GLineEdit_517 = tk.Canvas(root)
-        self.__GLineEdit_517.place(x=50, y=130, width=234, height=140)
+        
+        self.__First_Canvas = tk.Canvas(root, width=305, height=150)
+        self.__First_Canvas.place(x=30, y=130)
 
-        self.__GLineEdit_985 = tk.Canvas(root)
-        self.__GLineEdit_985.place(x=310, y=130, width=239, height=139)
+        self.__Second_Canvas = tk.Canvas(root, width=305, height=150)
+        self.__Second_Canvas.place(x=365, y=130)
+ 
+        self.__Third_Canvas = tk.Canvas(root, width=305, height=150)  
+        self.__Third_Canvas.place(x=30, y=290)
+        
+        self.__Fourth_Canvas = tk.Canvas(root, width=305, height=150)
+        self.__Fourth_Canvas.place(x=365, y=290)
+        
+                
 
-        self.__GLineEdit_392 = tk.Canvas(root)
-        self.__GLineEdit_392.place(x=50, y=290, width=233, height=157)
-
-        self.__GLineEdit_700 = tk.Canvas(root)
-        self.__GLineEdit_700.place(x=310, y=290, width=234, height=158)
-
-    def __GButton_450_command(self):
+    def __Button1_command(self):
         filePath = fd.askopenfilename(initialdir='.')
+        
+        #Displaying just file name
+        self.__File_Label.config(text = os.path.basename(filePath))
         try:
             self.__df = pd.read_csv(filePath)
             self.__df = self.__df.dropna()
-            self.__GListBox_563['values'] = list(self.__df['COMMUNITY AREA NAME'].unique())
+            self.__List_Box['values'] = list(self.__df['COMMUNITY AREA NAME'].unique())
         except:
             # quick and dirty, desired behavior would be to show a notification pop up that says
             # "nope!"
-            print('nope')
+                     
+            tk.messagebox.showinfo("ERROR", "ERROR Wrong file")
+            
+            
+          
+          
 
     # desired behavior: select one area, show 4 plots drawn on 4 canvases of that area: 
     # top left: bar chart, average KWH by month
     # top right: bar chart, average THERM by month
     # bottom left and bottom right up to you
     def __comboBoxCb(self, event=None):
-        self.__subdf = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.__GListBox_563.get()]
+       
+        #Chose area
+        self.__subdf = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.__List_Box.get()]
+        
         print(self.__subdf.head())
-        fig1 = Figure(figsize=(self.__GLineEdit_392.winfo_width, self.__GLineEdit_392.winfo_height), dpi=100)
-        ax1 = fig1.add_subplot(111)
-        self.__subdf.iloc[:, range(self.__subdf.columns.get_loc['KWH JANUARY 2010'], 12)].mean().plot.bar(ax=ax1)
+        #figure size
+        #fig1 = plt.Figure(figsize=(self.__Third_Canvas.winfo_width, self.__Third_Canvas.winfo_height), dpi=100)
+       
+        
+        
 
-
+      
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
     root.mainloop()
-   
