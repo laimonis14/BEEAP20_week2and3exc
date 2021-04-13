@@ -10,6 +10,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from matplotlib.figure import Figure
 
 
+        
 class App:
     def __init__(self, root):
         # setting title
@@ -83,15 +84,10 @@ class App:
         except:
             # quick and dirty, desired behavior would be to show a notification pop up that says
             # "nope!"
-            pt = tkFont.Font(family = "Times", size = 8)
-           
-            popup = tk.Tk()
+                     
+            tk.messagebox.showinfo("ERROR", "ERROR Wrong file")
             
-            popup.wm_title("ERROR")
-            label = ttk.Label(popup, text = "File does not contain \"COMMUNITY AREA NAME\" column  \n", font=pt)
-            label.pack(side="top", fill="x", pady=15)
             
-            popup.mainloop()
           
           
 
@@ -100,17 +96,21 @@ class App:
     # top right: bar chart, average THERM by month
     # bottom left and bottom right up to you
     def __comboBoxCb(self, event=None):
+       
+        #Chose area
         self.__subdf = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.__List_Box.get()]
-        print(self.__subdf.head())
-        fig1 = plt.Figure(figsize=(self.__Third_Canvas.winfo_width, self.__Third_Canvas.winfo_height), dpi=100)
-        ax1 = fig1.add_subplot(111)
-        self.__subdf.iloc[:, range(self.__subdf.columns.get_loc['KWH JANUARY 2010'], 12)].mean().plot.bar(ax=ax1)
         
-        chart1 = FigureCanvasTkAgg(fig1, root)
-        chart1.get_tk_widget().pack()
+        print(self.__subdf.head())
+        #figure size
+        #fig1 = plt.Figure(figsize=(self.__Third_Canvas.winfo_width, self.__Third_Canvas.winfo_height), dpi=100)
+       
+        
+        
 
       
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
     root.mainloop()
+
+
