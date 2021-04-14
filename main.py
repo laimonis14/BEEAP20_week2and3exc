@@ -1,3 +1,4 @@
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,7 +15,7 @@ from matplotlib.figure import Figure
 class App:
     def __init__(self, root):
         # setting title
-        root.title("DATA Browser")
+        root.title("DATA Browser/test changing")
         # setting window size
         width = 700
         height = 500
@@ -80,7 +81,7 @@ class App:
         try:
             self.__df = pd.read_csv(filePath)
             self.__df = self.__df.dropna()
-            self.__List_Box['values'] = list(self.__df['COMMUNITY AREA NAME'].unique())
+            self.__List_Box['values'] = sorted(list(self.__df['COMMUNITY AREA NAME'].unique()))
         except:
             # quick and dirty, desired behavior would be to show a notification pop up that says
             # "nope!"
@@ -112,5 +113,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
     root.mainloop()
-
-
