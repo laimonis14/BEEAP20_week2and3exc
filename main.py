@@ -80,7 +80,7 @@ class App:
         try:
             self.__df = pd.read_csv(filePath)
             self.__df = self.__df.dropna()
-            self.__List_Box['values'] = list(self.__df['COMMUNITY AREA NAME'].unique())
+            self.__List_Box['values'] = sorted(list(self.__df['COMMUNITY AREA NAME'].unique()))
         except:
             # quick and dirty, desired behavior would be to show a notification pop up that says
             # "nope!"
