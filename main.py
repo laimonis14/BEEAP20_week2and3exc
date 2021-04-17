@@ -87,10 +87,7 @@ class App:
             # "nope!"
                      
             tk.messagebox.showinfo("ERROR", "ERROR Wrong file")
-            
-            
-          
-          
+                     
 
     # desired behavior: select one area, show 4 plots drawn on 4 canvases of that area: 
     # top left: bar chart, average KWH by month
@@ -117,7 +114,8 @@ class App:
         graph2 = FigureCanvasTkAgg(fig2, root)
         graph2.get_tk_widget().place(x=365, y=130, width=305, height=150)
         self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].mean().plot.pie(ax=ax2)
+        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].mean().plot.pie(ax=ax2, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11})
+        ax2.set_title('Average THERM by month') 
         
         
         fig3 = plt.figure(dpi=50)
@@ -125,19 +123,20 @@ class App:
         graph3 = FigureCanvasTkAgg(fig3, root)
         graph3.get_tk_widget().place(x=30, y=290, width=305, height=150)
         self.__KWH_jan_loc = self.__subdf.columns.get_loc('KWH JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].max().plot.pie(ax=ax3)
+        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].max().plot.pie(ax=ax3, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11})
+        ax3.set_title('Maximum KWH by month') 
         
         
         fig4 = plt.figure(dpi=50)
         ax4 = fig4.add_subplot(111)      
-        graph4 = FigureCanvasTkAgg(fig2, root)
+        graph4 = FigureCanvasTkAgg(fig4, root)
         graph4.get_tk_widget().place(x=365, y=290, width=305, height=150)
         self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
         self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.bar(ax=ax4)
+        ax4.set_xticks(range(0,12))
+        ax4.set_xticklabels(str_month_list)
+        ax4.set_title('Maximum THERM by month')
        
-        
-        
-
       
 if __name__ == "__main__":
     root = tk.Tk()
