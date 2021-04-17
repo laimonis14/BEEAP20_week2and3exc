@@ -82,9 +82,15 @@ class App:
         #Displaying just file name
         self.__File_Label.config(text = os.path.basename(filePath))
         try:
+
             self.__df = pd.read_csv(filePath)  # reading file
             self.__df = self.__df.dropna()     # deletes empty rows
             self.__List_Box['values'] = sorted(list(self.__df['COMMUNITY AREA NAME'].unique())) #Sortes the list
+
+            self.__df = pd.read_csv(filePath)
+            self.__df = self.__df.dropna()
+            self.__List_Box['values'] = sorted(list(self.__df['COMMUNITY AREA NAME'].unique()))
+
         except:
             # quick and dirty, desired behavior would be to show a notification pop up that says
             # "nope!"
@@ -129,6 +135,7 @@ class App:
         graph3.get_tk_widget().place(x=30, y=290, width=305, height=150)
         self.__KWH_jan_loc = self.__subdf.columns.get_loc('KWH JANUARY 2010')
         self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].max().plot.pie(ax=ax3, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
+        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].max().plot.pie(ax=ax3, labels=str_month_list, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
         ax3.set_title('Maximum KWH by month') 
         
         # Fourth figure
@@ -138,6 +145,7 @@ class App:
         graph4.get_tk_widget().place(x=365, y=290, width=305, height=150)
         self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
         self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.pie(ax=ax4, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
+        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.pie(ax=ax4, labels=str_month_list, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
         ax4.set_title('Maximum THERM by month') 
        
       
@@ -145,3 +153,5 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
     root.mainloop()
+    root.mainloop()
+
