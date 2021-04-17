@@ -96,47 +96,46 @@ class App:
     def __comboBoxCb(self, event=None):
         self.__subdf = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.__List_Box.get()]
                 
-        
+        # First figure
         fig1 = plt.figure(dpi=50)                 
         ax1 = fig1.add_subplot(111)
         graph1 = FigureCanvasTkAgg(fig1, root)
         graph1.get_tk_widget().place(x=30, y=130, width=305, height=150)
         self.__KWH_jan_loc = self.__subdf.columns.get_loc('KWH JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].mean().plot.bar(ax=ax1)
+        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].mean().plot.bar(ax=ax1)  # creating bar chart
         str_month_list = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
         ax1.set_xticks(range(0,12))
         ax1.set_xticklabels(str_month_list)
         ax1.set_title('Average KWH by month')   
        
-       
+        # Second figure
         fig2 = plt.figure(dpi=50)
         ax2 = fig2.add_subplot(111)      
         graph2 = FigureCanvasTkAgg(fig2, root)
         graph2.get_tk_widget().place(x=365, y=130, width=305, height=150)
         self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].mean().plot.bar(ax=ax2)
+        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].mean().plot.bar(ax=ax2)  # creating bar chart
         ax2.set_xticks(range(0,12))
         ax2.set_xticklabels(str_month_list)
         ax2.set_title('Average THERM by month') 
         
-        
+        # Third figure
         fig3 = plt.figure(dpi=50)
         ax3 = fig3.add_subplot(111)      
         graph3 = FigureCanvasTkAgg(fig3, root)
         graph3.get_tk_widget().place(x=30, y=290, width=305, height=150)
         self.__KWH_jan_loc = self.__subdf.columns.get_loc('KWH JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].max().plot.pie(ax=ax3, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11})
+        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].max().plot.pie(ax=ax3, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
         ax3.set_title('Maximum KWH by month') 
         
-        
+        # Fourth figure
         fig4 = plt.figure(dpi=50)
         ax4 = fig4.add_subplot(111)      
         graph4 = FigureCanvasTkAgg(fig4, root)
         graph4.get_tk_widget().place(x=365, y=290, width=305, height=150)
         self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.pie(ax=ax4, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11})
-        ax4.set_xticklabels(str_month_list)
-        ax4.set_title('Maximum THERM by month')  
+        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.pie(ax=ax4, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
+        ax4.set_title('Maximum THERM by month') 
        
       
 if __name__ == "__main__":
