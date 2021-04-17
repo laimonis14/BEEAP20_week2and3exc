@@ -15,7 +15,7 @@ from matplotlib.figure import Figure
 class App:
     def __init__(self, root):
         # setting title
-        root.title("DATA Browser/test changing")
+        root.title("DATA Browser")
         # setting window size
         width = 700
         height = 500
@@ -114,7 +114,9 @@ class App:
         graph2 = FigureCanvasTkAgg(fig2, root)
         graph2.get_tk_widget().place(x=365, y=130, width=305, height=150)
         self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].mean().plot.pie(ax=ax2, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11})
+        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].mean().plot.bar(ax=ax2)
+        ax2.set_xticks(range(0,12))
+        ax2.set_xticklabels(str_month_list)
         ax2.set_title('Average THERM by month') 
         
         
@@ -132,10 +134,9 @@ class App:
         graph4 = FigureCanvasTkAgg(fig4, root)
         graph4.get_tk_widget().place(x=365, y=290, width=305, height=150)
         self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.bar(ax=ax4)
-        ax4.set_xticks(range(0,12))
+        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.pie(ax=ax4, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11})
         ax4.set_xticklabels(str_month_list)
-        ax4.set_title('Maximum THERM by month')
+        ax4.set_title('Maximum THERM by month')  
        
       
 if __name__ == "__main__":
