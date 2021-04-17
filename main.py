@@ -97,13 +97,43 @@ class App:
     # top right: bar chart, average THERM by month
     # bottom left and bottom right up to you
     def __comboBoxCb(self, event=None):
-       
-        #Chose area
         self.__subdf = self.__df.loc[self.__df['COMMUNITY AREA NAME'] == self.__List_Box.get()]
+                
         
-        print(self.__subdf.head())
-        #figure size
-        #fig1 = plt.Figure(figsize=(self.__Third_Canvas.winfo_width, self.__Third_Canvas.winfo_height), dpi=100)
+        fig1 = plt.figure(dpi=50)                 
+        ax1 = fig1.add_subplot(111)
+        graph1 = FigureCanvasTkAgg(fig1, root)
+        graph1.get_tk_widget().place(x=30, y=130, width=305, height=150)
+        self.__KWH_jan_loc = self.__subdf.columns.get_loc('KWH JANUARY 2010')
+        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].mean().plot.bar(ax=ax1)
+        str_month_list = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+        ax1.set_xticks(range(0,12))
+        ax1.set_xticklabels(str_month_list)
+        ax1.set_title('Average KWH by month')   
+       
+       
+        fig2 = plt.figure(dpi=50)
+        ax2 = fig2.add_subplot(111)      
+        graph2 = FigureCanvasTkAgg(fig2, root)
+        graph2.get_tk_widget().place(x=365, y=130, width=305, height=150)
+        self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
+        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].mean().plot.pie(ax=ax2)
+        
+        
+        fig3 = plt.figure(dpi=50)
+        ax3 = fig3.add_subplot(111)      
+        graph3 = FigureCanvasTkAgg(fig3, root)
+        graph3.get_tk_widget().place(x=30, y=290, width=305, height=150)
+        self.__KWH_jan_loc = self.__subdf.columns.get_loc('KWH JANUARY 2010')
+        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].max().plot.pie(ax=ax3)
+        
+        
+        fig4 = plt.figure(dpi=50)
+        ax4 = fig4.add_subplot(111)      
+        graph4 = FigureCanvasTkAgg(fig2, root)
+        graph4.get_tk_widget().place(x=365, y=290, width=305, height=150)
+        self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
+        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.bar(ax=ax4)
        
         
         
