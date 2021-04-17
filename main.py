@@ -125,7 +125,7 @@ class App:
         graph3 = FigureCanvasTkAgg(fig3, root)
         graph3.get_tk_widget().place(x=30, y=290, width=305, height=150)
         self.__KWH_jan_loc = self.__subdf.columns.get_loc('KWH JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].max().plot.pie(ax=ax3, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
+        self.__subdf.iloc[:, range(self.__KWH_jan_loc, self.__KWH_jan_loc+12)].max().plot.pie(ax=ax3, labels=str_month_list, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
         ax3.set_title('Maximum KWH by month') 
         
         # Fourth figure
@@ -134,7 +134,7 @@ class App:
         graph4 = FigureCanvasTkAgg(fig4, root)
         graph4.get_tk_widget().place(x=365, y=290, width=305, height=150)
         self.__THERM_jan_loc = self.__subdf.columns.get_loc('THERM JANUARY 2010')
-        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.pie(ax=ax4, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
+        self.__subdf.iloc[:, range(self.__THERM_jan_loc, self.__THERM_jan_loc+12)].max().plot.pie(ax=ax4, labels=str_month_list, autopct='%0.2f%%', shadow=True, textprops={'fontsize':11}, labeldistance=1.2) # creating pie chart
         ax4.set_title('Maximum THERM by month') 
        
       
